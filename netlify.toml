@@ -1,13 +1,18 @@
 [build]
-  publish = "."
-  command = "echo 'Build completed'"
+  publish = "dist"
+  command = "npm run build:netlify"
 
 [build.environment]
   NODE_VERSION = "18"
 
 [[redirects]]
   from = "/*"
-  to = "/web-app.html"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
 [[headers]]

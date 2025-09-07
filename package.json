@@ -12,7 +12,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "serve": "node server.js",
-    "serve:https": "node server.js"
+    "serve:https": "node server.js",
+    "build:netlify": "node build-netlify.js",
+    "deploy": "netlify deploy --prod --dir ."
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
