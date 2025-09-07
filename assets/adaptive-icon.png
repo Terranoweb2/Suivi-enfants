@@ -1,0 +1,9 @@
+# This is a placeholder for Inter-Regular.ttf font file
+# In a real project, you would download the actual Inter font from Google Fonts
+# and place the .ttf files in this directory
+
+# For development, Expo will fallback to system fonts if these files are missing
+# To add real fonts:
+# 1. Download Inter font family from https://fonts.google.com/specimen/Inter
+# 2. Extract the .ttf files to this directory
+# 3. Update the font loading in App.tsx

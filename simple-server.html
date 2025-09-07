@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanceur TerranoKidsFind</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: #FF6B35;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+        .warning {
+            background: rgba(255,193,7,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .success {
+            background: rgba(40,167,69,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 TerranoKidsFind</h1>
+        <h2>Application de Sécurité Familiale</h2>
+        
+        <div class="success">
+            <h3>✅ Application Prête</h3>
+            <p>L'application TerranoKidsFind est maintenant optimisée avec :</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Accessibilité complète (ARIA, navigation clavier)</li>
+                <li>Validation de formulaires en temps réel</li>
+                <li>Interface responsive et moderne</li>
+                <li>Toutes les fonctionnalités activées</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Fonctionnalités Limitées</h3>
+            <p>En ouvrant directement le fichier HTML, certaines fonctionnalités sont limitées par les navigateurs :</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>🗺️ Géolocalisation GPS (nécessite HTTPS)</li>
+                <li>🎤 Reconnaissance vocale (nécessite HTTPS)</li>
+                <li>📷 Accès caméra/microphone (nécessite HTTPS)</li>
+                <li>🔔 Notifications push (nécessite HTTPS)</li>
+            </ul>
+        </div>
+
+        <h3>Choisissez votre mode de lancement :</h3>
+        
+        <a href="index.html" class="btn" onclick="openApp()">
+            🌐 Lancer l'Application
+        </a>
+        
+        <br><br>
+        
+        <button class="btn" onclick="copyPath()">
+            📋 Copier le Chemin Complet
+        </button>
+        
+        <div id="path-info" style="margin-top: 20px; font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; display: none;">
+            file:///E:/TerranoFindKids/index.html
+        </div>
+
+        <div style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+            <p><strong>Pour des fonctionnalités complètes :</strong></p>
+            <p>Installez un serveur web local (XAMPP, WAMP, ou Live Server dans VS Code)</p>
+        </div>
+    </div>
+
+    <script>
+        function openApp() {
+            // Ouvrir l'application dans un nouvel onglet
+            window.open('index.html', '_blank');
+        }
+        
+        function copyPath() {
+            const path = 'file:///E:/TerranoFindKids/index.html';
+            navigator.clipboard.writeText(path).then(() => {
+                document.getElementById('path-info').style.display = 'block';
+                alert('Chemin copié dans le presse-papiers !\\nCollez-le dans la barre d\'adresse de votre navigateur.');
+            }).catch(() => {
+                document.getElementById('path-info').style.display = 'block';
+                alert('Copiez ce chemin manuellement dans votre navigateur :\\n' + path);
+            });
+        }
+        
+        // Vérifier si on est en HTTPS
+        if (location.protocol === 'https:') {
+            document.querySelector('.warning').style.display = 'none';
+            document.querySelector('.success').innerHTML += '<p><strong>🔒 Mode HTTPS détecté - Toutes les fonctionnalités sont disponibles !</strong></p>';
+        }
+    </script>
+</body>
+</html>

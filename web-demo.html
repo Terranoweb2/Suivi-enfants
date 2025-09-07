@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerranoKidsFind - Démo Visuelle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #FF6B35 0%, #1A1A1A 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .logo svg {
+            width: 60px;
+            height: 60px;
+            fill: white;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            border-radius: 8px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .feature-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #E55A2B;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @media (max-width: 480px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo pulse">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+            </svg>
+        </div>
+        
+        <h1>TerranoKidsFind</h1>
+        <p class="subtitle">Sécurité familiale intelligente</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📍</div>
+                <div class="feature-title">Géolocalisation</div>
+                <div class="feature-desc">Suivi en temps réel</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚨</div>
+                <div class="feature-title">Alertes SOS</div>
+                <div class="feature-desc">Urgences instantanées</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Zones sûres</div>
+                <div class="feature-desc">Géofencing intelligent</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💬</div>
+                <div class="feature-title">Communication</div>
+                <div class="feature-desc">Messages sécurisés</div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-primary" onclick="openApp()">Ouvrir l'App</button>
+            <button class="btn btn-secondary" onclick="toggleTheme()">Thème Sombre</button>
+        </div>
+        
+        <div class="status">
+            ✅ Application active avec nouveau thème orange/noir<br>
+            🎨 Interface moderne et responsive<br>
+            📱 Compatible mobile et desktop
+        </div>
+    </div>
+    
+    <script>
+        function openApp() {
+            // Tenter d'ouvrir l'application native ou rediriger vers Expo
+            window.open('exp://localhost:8081', '_blank');
+            setTimeout(() => {
+                alert('Scannez le QR code avec Expo Go pour ouvrir l\'application mobile');
+            }, 1000);
+        }
+        
+        function toggleTheme() {
+            const body = document.body;
+            if (body.style.background.includes('#1A1A1A')) {
+                body.style.background = 'linear-gradient(135deg, #FF6B35 0%, #FFB366 100%)';
+            } else {
+                body.style.background = 'linear-gradient(135deg, #FF6B35 0%, #1A1A1A 100%)';
+            }
+        }
+        
+        // Animation d'entrée
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px)';
+            container.style.transition = 'all 0.8s ease';
+            
+            setTimeout(() => {
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerranoKidsFind - Application Web</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF6B35;
+            --secondary: #FF8C42;
+            --dark: #1A1A1A;
+            --gray-800: #2C2C2C;
+            --gray-600: #757575;
+            --gray-300: #E0E0E0;
+            --white: #FFFFFF;
+            --success: #4CAF50;
+            --error: #F44336;
+            --warning: #FF9800;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            border-right: 1px solid var(--gray-300);
+            padding: 2rem 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: linear-gradient(90deg, var(--primary), transparent);
+            color: var(--primary);
+            border-right: 3px solid var(--primary);
+        }
+        
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Status Cards */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .status-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .status-label {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #E55A2B;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-300);
+            color: var(--dark);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Maps */
+        .map-container {
+            height: 400px;
+            background: var(--gray-300);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            font-size: 1.2rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .content {
+                order: 1;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Dark Mode */
+        .dark-mode {
+            background: var(--dark);
+            color: white;
+        }
+        
+        .dark-mode .sidebar {
+            background: var(--gray-800);
+            border-color: var(--gray-600);
+        }
+        
+        .dark-mode .content {
+            background: var(--dark);
+        }
+        
+        .dark-mode .card {
+            background: var(--gray-800);
+        }
+        
+        .dark-mode .status-card {
+            background: var(--gray-800);
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    TerranoKidsFind
+                </div>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#dashboard" onclick="showPage('dashboard')">Tableau de bord</a></li>
+                        <li><a href="#map" onclick="showPage('map')">Carte</a></li>
+                        <li><a href="#messages" onclick="showPage('messages')">Messages</a></li>
+                        <li><a href="#settings" onclick="showPage('settings')">Paramètres</a></li>
+                        <li><button class="btn btn-secondary" onclick="toggleTheme()"><i class="fas fa-moon"></i></button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#dashboard" class="active" onclick="showPage('dashboard')"><i class="fas fa-home"></i> Tableau de bord</a></li>
+                    <li><a href="#map" onclick="showPage('map')"><i class="fas fa-map-marker-alt"></i> Localisation</a></li>
+                    <li><a href="#alerts" onclick="showPage('alerts')"><i class="fas fa-exclamation-triangle"></i> Alertes SOS</a></li>
+                    <li><a href="#zones" onclick="showPage('zones')"><i class="fas fa-shield-alt"></i> Zones sûres</a></li>
+                    <li><a href="#messages" onclick="showPage('messages')"><i class="fas fa-comments"></i> Messages</a></li>
+                    <li><a href="#contacts" onclick="showPage('contacts')"><i class="fas fa-address-book"></i> Contacts</a></li>
+                    <li><a href="#settings" onclick="showPage('settings')"><i class="fas fa-cog"></i> Paramètres</a></li>
+                    <li><a href="#premium" onclick="showPage('premium')"><i class="fas fa-crown"></i> Premium</a></li>
+                </ul>
+            </aside>
+
+            <!-- Content Area -->
+            <section class="content">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page fade-in">
+                    <h1 class="page-title">Tableau de bord</h1>
+                    
+                    <!-- Status Cards -->
+                    <div class="status-grid">
+                        <div class="status-card">
+                            <div class="status-value">3</div>
+                            <div class="status-label">Enfants connectés</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-value">2</div>
+                            <div class="status-label">Zones sûres</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-value">0</div>
+                            <div class="status-label">Alertes actives</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-value">85%</div>
+                            <div class="status-label">Batterie moyenne</div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Cards -->
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Localisation en temps réel</h3>
+                                <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            </div>
+                            <p>Suivez la position de vos enfants en temps réel avec une précision GPS avancée.</p>
+                            <button class="btn btn-primary" onclick="showPage('map')">Voir la carte</button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Alertes SOS</h3>
+                                <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            </div>
+                            <p>Système d'alerte d'urgence instantané pour la sécurité de vos enfants.</p>
+                            <button class="btn btn-danger pulse">Alerte SOS</button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Zones de sécurité</h3>
+                                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                            </div>
+                            <p>Définissez des zones sûres et recevez des notifications d'entrée/sortie.</p>
+                            <button class="btn btn-success" onclick="showPage('zones')">Gérer les zones</button>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Communication</h3>
+                                <div class="card-icon"><i class="fas fa-comments"></i></div>
+                            </div>
+                            <p>Messages sécurisés et appels d'urgence avec vos enfants.</p>
+                            <button class="btn btn-primary" onclick="showPage('messages')">Envoyer message</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Page -->
+                <div id="map-page" class="page" style="display: none;">
+                    <h1 class="page-title">Carte de localisation</h1>
+                    <div class="map-container">
+                        <div>
+                            <i class="fas fa-map fa-3x"></i>
+                            <p>Carte interactive - Intégration Google Maps/OpenStreetMap</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Page -->
+                <div id="messages-page" class="page" style="display: none;">
+                    <h1 class="page-title">Messages</h1>
+                    <div class="card">
+                        <div class="form-group">
+                            <label class="form-label">Destinataire</label>
+                            <select class="form-input">
+                                <option>Emma (Fille)</option>
+                                <option>Lucas (Fils)</option>
+                                <option>Sarah (Fille)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input" rows="4" placeholder="Tapez votre message..."></textarea>
+                        </div>
+                        <button class="btn btn-primary">Envoyer</button>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings-page" class="page" style="display: none;">
+                    <h1 class="page-title">Paramètres</h1>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3 class="card-title">Profil utilisateur</h3>
+                            <div class="form-group">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-input" value="Parent Terrano">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" value="parent@terrano.com">
+                            </div>
+                            <button class="btn btn-primary">Sauvegarder</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title">Notifications</h3>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" checked> Alertes SOS
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" checked> Notifications de zone
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox"> Rapports quotidiens
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + '-page').style.display = 'block';
+            
+            // Update active menu
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[href="#${pageId}"]`).classList.add('active');
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // SOS Alert
+        function triggerSOS() {
+            if (confirm('Déclencher une alerte SOS d\'urgence ?')) {
+                alert('🚨 Alerte SOS envoyée ! Les services d\'urgence ont été notifiés.');
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TerranoKidsFind Web App loaded');
+            
+            // Add click handlers for SOS buttons
+            document.querySelectorAll('.btn-danger').forEach(btn => {
+                btn.addEventListener('click', triggerSOS);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "expo": {
+    "name": "TerranoKidsFind",
+    "slug": "terrano-kids-find",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FF6B35"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.terrano.kidsfind",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Cette application a besoin d'accéder à votre localisation pour suivre et protéger vos enfants.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Cette application a besoin d'accéder à votre localisation en permanence pour la sécurité de vos enfants.",
+        "NSMicrophoneUsageDescription": "Cette application peut utiliser le microphone pour la fonction d'écoute de l'environnement de sécurité.",
+        "NSCameraUsageDescription": "Cette application peut utiliser la caméra pour les fonctionnalités de sécurité.",
+        "NSContactsUsageDescription": "Cette application accède aux contacts pour gérer les numéros autorisés.",
+        "NSFaceIDUsageDescription": "Cette application utilise Face ID pour sécuriser l'accès."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FF6B35"
+      },
+      "package": "com.terrano.kidsfind",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "RECORD_AUDIO",
+        "CAMERA",
+        "READ_CONTACTS",
+        "WRITE_CONTACTS",
+        "CALL_PHONE",
+        "READ_PHONE_STATE",
+        "RECEIVE_BOOT_COMPLETED",
+        "WAKE_LOCK",
+        "VIBRATE",
+        "USE_FINGERPRINT",
+        "USE_BIOMETRIC"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "webpack",
+      "build": {
+        "babel": {
+          "include": [
+            "@expo/vector-icons"
+          ]
+        }
+      }
+    },
+    "plugins": [
+      "expo-location",
+      "expo-notifications",
+      "expo-local-authentication",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "L'application utilise la caméra pour les fonctionnalités de sécurité."
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "L'application utilise le microphone pour la fonction d'écoute de l'environnement."
+        }
+      ]
+    ]
+  }
+}
