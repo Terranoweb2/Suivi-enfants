@@ -1,0 +1,40 @@
+{
+  "name": "TerranoKidsFind - Sécurité Familiale",
+  "short_name": "TerranoKidsFind",
+  "description": "Application de sécurité familiale pour protéger et suivre vos enfants en temps réel",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "utilities", "family"],
+  "lang": "fr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "./public/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./public/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./assets/images/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "features": [
+    "geolocation",
+    "notifications",
+    "offline"
+  ],
+  "prefer_related_applications": false
+}

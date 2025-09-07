@@ -2,12 +2,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>TerranoKidsFind - Sécurité Familiale</title>
     <meta name="description" content="Application de sécurité familiale pour protéger et suivre vos enfants en temps réel">
     <meta name="theme-color" content="#FF6B35">
     <link rel="icon" href="./public/favicon.png">
+    <link rel="manifest" href="./manifest.json">
     <title>TerranoKidsFind - Sécurité Familiale</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TerranoKidsFind">
+    <link rel="apple-touch-icon" href="./public/icon-192.png">
     
     <!-- SEO et Open Graph -->
     <meta property="og:title" content="TerranoKidsFind - Sécurité Familiale">
@@ -202,6 +210,42 @@
             background: var(--white);
             border-right: 1px solid var(--gray-300);
             padding: 2rem 0;
+            position: fixed;
+            left: -280px;
+            top: 0;
+            height: 100vh;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .sidebar.open {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .sidebar-overlay.show {
+            display: block;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
         .sidebar-menu {
@@ -232,8 +276,10 @@
         /* Content Area */
         .content {
             flex: 1;
-            padding: 2rem;
+            padding: 1rem;
             background: #f8f9fa;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
         }
         
         .page-title {
@@ -245,15 +291,15 @@
         /* Dashboard Cards */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .card {
             background: white;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
@@ -290,15 +336,15 @@
         /* Status Cards */
         .status-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
         
         .status-card {
             background: white;
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
@@ -402,29 +448,176 @@
             justify-content: center;
             color: var(--gray-600);
             font-size: 1.2rem;
+            position: relative;
+        }
+        
+        /* Map controls for mobile */
+        .leaflet-control-container {
+            font-size: 18px;
+        }
+        
+        .leaflet-control-zoom a {
+            width: 44px !important;
+            height: 44px !important;
+            line-height: 44px !important;
+            font-size: 18px !important;
+        }
+        
+        .leaflet-touch .leaflet-control-layers,
+        .leaflet-touch .leaflet-bar {
+            border: 2px solid rgba(0,0,0,0.2);
+            background-clip: padding-box;
+        }
+        
+        .leaflet-touch .leaflet-control-layers a,
+        .leaflet-touch .leaflet-bar a {
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
         }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .main-content {
                 flex-direction: column;
             }
             
-            .sidebar {
-                width: 100%;
-                order: 2;
+            .content {
+                padding: 0.75rem;
+                margin-left: 0 !important;
             }
             
-            .content {
-                order: 1;
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
             }
             
             .nav-menu {
                 display: none;
             }
             
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
             .dashboard-grid {
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .status-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .status-card {
+                padding: 0.75rem;
+            }
+            
+            .status-value {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 1rem;
+                min-height: 44px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .content {
+                padding: 0.5rem;
+            }
+            
+            .card {
+                padding: 0.75rem;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-card {
+                padding: 0.5rem;
+            }
+            
+            .dashboard-grid {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+                font-size: 1.1rem;
+                min-height: 48px;
+            }
+            
+            .page-title {
+                font-size: 1.25rem;
+            }
+            
+            .map-container {
+                height: 250px;
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .btn:hover {
+                transform: none;
+            }
+            
+            .card:hover {
+                transform: none;
+            }
+            
+            .btn:active {
+                transform: scale(0.98);
+            }
+            
+            .sidebar-menu a {
+                padding: 1.25rem 2rem;
+            }
+        }
+        
+        /* Landscape tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .status-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1025px) {
+            .content {
+                margin-left: 280px;
+            }
+            
+            .sidebar {
+                position: fixed;
+                left: 0;
             }
         }
         
@@ -467,6 +660,55 @@
             height: auto;
         }
         
+        /* PWA specific styles */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .install-prompt.show {
+            display: flex;
+        }
+        
+        .install-prompt button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Offline indicator */
+        .offline-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--error);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            z-index: 10001;
+            display: none;
+        }
+        
+        .offline-indicator.show {
+            display: block;
+        }
+        
         /* Optimize animations */
         * {
             will-change: auto;
@@ -499,7 +741,10 @@
     <div class="app-container">
         <!-- Header -->
         <header class="header">
-            <div class="header">
+            <div class="header-content">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <div class="logo">
                     <img src="https://res.cloudinary.com/dxy0fiahv/image/upload/v1756139122/logo_tfinds_laf9do.png" alt="TerranoKidsFind Logo" style="width: 32px; height: 32px; margin-right: 0.5rem; border-radius: 4px;">
                     TerranoKidsFind
@@ -515,6 +760,24 @@
                 </nav>
             </div>
         </header>
+        
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" onclick="closeMobileMenu()"></div>
+        
+        <!-- PWA Install Prompt -->
+        <div class="install-prompt" id="install-prompt">
+            <div>
+                <strong>Installer TerranoKidsFind</strong><br>
+                <small>Ajoutez l'app à votre écran d'accueil pour un accès rapide</small>
+            </div>
+            <button onclick="installPWA()">Installer</button>
+            <button onclick="dismissInstallPrompt()" style="background: transparent; color: white;">Plus tard</button>
+        </div>
+        
+        <!-- Offline Indicator -->
+        <div class="offline-indicator" id="offline-indicator">
+            <i class="fas fa-wifi"></i> Mode hors ligne - Certaines fonctionnalités sont limitées
+        </div>
 
         <!-- Main Content -->
         <main class="main-content">
@@ -3537,6 +3800,131 @@
                     console.warn('Impossible d\'obtenir la position initiale:', error);
                 });
             }
+        });
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+
+        // Close mobile menu when clicking on menu items
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // PWA functionality
+            initializePWA();
+            
+            // Network status monitoring
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            updateOnlineStatus();
+        });
+
+        // PWA Installation
+        let deferredPrompt;
+        
+        function initializePWA() {
+            // Listen for beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                showInstallPrompt();
+            });
+            
+            // Check if already installed
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('PWA is already installed');
+            }
+        }
+        
+        function showInstallPrompt() {
+            const installPrompt = document.getElementById('install-prompt');
+            if (installPrompt && deferredPrompt) {
+                installPrompt.classList.add('show');
+            }
+        }
+        
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('PWA installation accepted');
+                    }
+                    deferredPrompt = null;
+                    dismissInstallPrompt();
+                });
+            }
+        }
+        
+        function dismissInstallPrompt() {
+            const installPrompt = document.getElementById('install-prompt');
+            if (installPrompt) {
+                installPrompt.classList.remove('show');
+            }
+        }
+        
+        // Network status
+        function updateOnlineStatus() {
+            const offlineIndicator = document.getElementById('offline-indicator');
+            if (navigator.onLine) {
+                offlineIndicator.classList.remove('show');
+            } else {
+                offlineIndicator.classList.add('show');
+            }
+        }
+        
+        // Touch gestures for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            if (!touchStartX || !touchStartY) return;
+            
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            
+            // Swipe right to open menu (only if closed)
+            if (Math.abs(diffX) > Math.abs(diffY) && diffX < -50 && touchStartX < 50) {
+                const sidebar = document.querySelector('.sidebar');
+                if (!sidebar.classList.contains('open')) {
+                    toggleMobileMenu();
+                }
+            }
+            
+            // Swipe left to close menu (only if open)
+            if (Math.abs(diffX) > Math.abs(diffY) && diffX > 50) {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar.classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            }
+            
+            touchStartX = 0;
+            touchStartY = 0;
         });
     </script>
 </body>
