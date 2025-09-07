@@ -5,6 +5,10 @@ const path = require('path');
 
 console.log('🚀 Building TerranoKidsFind for Netlify...');
 
+// Vérifier si nous sommes dans un environnement de build Netlify
+const isNetlify = process.env.NETLIFY === 'true';
+console.log(`Environment: ${isNetlify ? 'Netlify' : 'Local'}`);
+
 // Créer le dossier de build s'il n'existe pas
 const buildDir = path.join(__dirname, 'dist');
 if (!fs.existsSync(buildDir)) {
